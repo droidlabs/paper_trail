@@ -90,7 +90,7 @@ module PaperTrail
 
       # Returns who put the object into its current state.
       def originator
-        version_class.with_item_keys(self.class.name, id).last.try :whodunnit
+        @originator ||= self.send(versions_association_name).last.try :whodunnit
       end
 
       # Returns the object (not a Version) as it was at the given timestamp.
